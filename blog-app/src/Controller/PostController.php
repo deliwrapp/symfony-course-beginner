@@ -54,7 +54,7 @@ class PostController extends AbstractController
     // SLUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
     //
     // gérer le retour via un slug
-    #[Route('/{id}', name: 'app_post_show_by_slug', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_post_show_by_slug', methods: ['GET'])]
     public function showBySlug(PostRepository $postRepository, int $id): Response
     {
         return $this->render('post/show.html.twig', [

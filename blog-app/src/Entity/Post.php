@@ -6,9 +6,18 @@ use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\PreUpdate;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[HasLifecycleCallbacks]
+#[UniqueEntity(
+    fields: ['title', 'slug'],
+    errorPath: 'title',
+    message: 'The Title and the Slug must be unique.'
+)]
 class Post
 {
     use \App\Traits\LifecycleTrackerTrait;
@@ -18,8 +27,8 @@ class Post
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
@@ -30,6 +39,9 @@ class Post
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $author = null;
+
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    private string $slug;
 
     public function getId(): ?int
     {
@@ -82,6 +94,28 @@ class Post
         $this->author = $author;
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $slugger = new AsciiSlugger;
+        $this->slug = $slugger->slug($slug);
+        unset($slugger);
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setSlugValue(): void
+    {
+        $slugger = new AsciiSlugger;
+        $this->slug = $slugger->slug($this->title);
+        unset($slugger);
     }
 
 }
