@@ -50,6 +50,18 @@ class PostController extends AbstractController
         ]);
     }
 
+    //
+    // SLUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+    //
+    // gérer le retour via un slug
+    #[Route('/{id}', name: 'app_post_show_by_slug', methods: ['GET'])]
+    public function showBySlug(PostRepository $postRepository, int $id): Response
+    {
+        return $this->render('post/show.html.twig', [
+            'post' => $postRepository->findOneBy(['id' => $id]),
+        ]);
+    }
+
     #[Route('/{id}/edit', name: 'app_post_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
