@@ -26,7 +26,7 @@ class AdminUserController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(AdminUserType::class, $user);
+        $form = $this->createForm(AdminUserType::class, $user, ['mode' => 'creation']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ class AdminUserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AdminUserType::class, $user);
+        $form = $this->createForm(AdminUserType::class, $user, ['mode' => 'edition']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

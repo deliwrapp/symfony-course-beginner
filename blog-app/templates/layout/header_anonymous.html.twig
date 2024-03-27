@@ -3,7 +3,9 @@
         
         <div class="col-4 pt-1">
             {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a class="text-muted" href="path('app_login')">Login</a>
+                <a class="text-muted" href="{{path('app_login')}}">Login</a>
+            {% else %}
+                <a class="text-muted" href="{{path('app_logout')}}">Logout</a>
             {% endif %}
         </div>
         <div class="col-4 text-center">

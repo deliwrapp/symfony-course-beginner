@@ -41,6 +41,7 @@ class AdminUserType extends AbstractType
             ])
         ;
         if ($options['mode'] == 'creation' || $options['mode'] == 'password_reset') {
+            
             $builder->add('password', PasswordType::class, [
                 'required' => true,
                 'hash_property_path' => 'password',
