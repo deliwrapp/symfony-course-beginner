@@ -1,3 +1,4 @@
 body {
-    background-color: skyblue;
+    box-sizing: border-box;
+    margin: 0;
 }
