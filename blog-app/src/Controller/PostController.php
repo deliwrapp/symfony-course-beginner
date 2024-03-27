@@ -45,7 +45,7 @@ class PostController extends AbstractController
     /*
     * SLUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
     */
-    #[Route('/{slug}', name: 'app_post_show_by_slug', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_post_by_slug', methods: ['GET'])]
     public function showBySlug(PostRepository $postRepository, string $slug): Response
     {
         return $this->render('post/show.html.twig', [
