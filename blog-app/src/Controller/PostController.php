@@ -42,23 +42,22 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_post_show', methods: ['GET'])]
+    /*
+    * SLUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+    */
+    #[Route('/{slug}', name: 'app_post_show_by_slug', methods: ['GET'])]
+    public function showBySlug(PostRepository $postRepository, string $slug): Response
+    {
+        return $this->render('post/show.html.twig', [
+            'post' => $postRepository->findOneBy(['slug' => $slug]),
+        ]);
+    }
+
+    #[Route('/show/{id}', name: 'app_post_show', methods: ['GET'])]
     public function show(Post $post): Response
     {
         return $this->render('post/show.html.twig', [
             'post' => $post,
-        ]);
-    }
-
-    //
-    // SLUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-    //
-    // gérer le retour via un slug
-    #[Route('/{slug}', name: 'app_post_show_by_slug', methods: ['GET'])]
-    public function showBySlug(PostRepository $postRepository, int $id): Response
-    {
-        return $this->render('post/show.html.twig', [
-            'post' => $postRepository->findOneBy(['id' => $id]),
         ]);
     }
 

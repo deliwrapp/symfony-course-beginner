@@ -21,7 +21,11 @@
         {% for post in posts %}
             <tr>
                 <td>{{ post.id }}</td>
-                <td>/{{ post.slug }}</td>
+                <td>
+                    <a href="{{ path('app_post_by_slug', {'slug' : post.slug }) }}">
+                        {{ post.slug}}
+                    </a>
+                </td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.published ? 'Yes' : 'No' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
