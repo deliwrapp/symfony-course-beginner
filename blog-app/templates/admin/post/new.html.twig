@@ -1,0 +1,11 @@
+{% extends 'layout/base_admin.html.twig' %}
+
+{% block title %}Admin New Post{% endblock %}
+
+{% block body %}
+    <h1>Create new Post</h1>
+
+    {{ include('admin/post/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_post_index') }}">back to list</a>
+{% endblock %}

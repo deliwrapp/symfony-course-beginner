@@ -1,0 +1,14 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block title %}Hello HomePageController!{% endblock %}
+
+{% block body %}
+<section class="album py-5 bg-light">
+    <section class="container">
+        <h2>THE BLOG</h2>
+        {% if posts is defined %}
+            {% include 'blocks/_posts_card_index.html.twig' with {'posts': posts} %}
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

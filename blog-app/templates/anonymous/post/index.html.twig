@@ -1,0 +1,50 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Author</th>
+                <th>Slug</th>
+                <th>Title</th>
+                <th>Published</th>
+                <th>CreatedAt</th>
+                <th>ModifiedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>
+                    {% if post.author is defined and post;.author is not null %}
+                        {{ post.author.email }}
+                    {% else %}
+                        no data
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_post_by_slug', {'slug' : post.slug }) }}">
+                        {{ post.slug}}
+                    </a>
+                </td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.published ? 'Yes' : 'No' }}</td>
+                <td>{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
+                <td>{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_post_show', {'id': post.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
