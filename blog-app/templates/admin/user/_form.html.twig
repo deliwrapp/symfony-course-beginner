@@ -1,4 +1,21 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+
+     {{ form_row(form.email) }}
+
+
+    {{ form_label(form.username, null, {
+        'label': 'Your username',
+        'label_attr': {'class': 'foo'}
+    }) }}
+    {{ form_widget(form.username, null, {
+        'attr': {'data-type': 'text'}
+    }) }}
+    {{ form_help(form.username) }}
+    {{ form_errors(form.username) }}
+
+
+     {{ form_row(form.isVerified) }}
+     {{ form_row(form.roles) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

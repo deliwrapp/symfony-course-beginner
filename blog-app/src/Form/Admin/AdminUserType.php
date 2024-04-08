@@ -40,7 +40,7 @@ class AdminUserType extends AbstractType
                 'expanded' => true
             ])
         ;
-        if ($options['mode'] == 'creation' || $options['mode'] == 'password_reset') {
+        if ($options['mode'] == User::CREATION_MODE || $options['mode'] == User::PASSWORD_RESET_MODE) {
             $builder->add('password', PasswordType::class, [
                 'required' => true,
                 'hash_property_path' => 'password',
@@ -53,7 +53,7 @@ class AdminUserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'mode' => 'edition',
+            'mode' => User::EDITION_MODE,
         ]);
     }
 }
